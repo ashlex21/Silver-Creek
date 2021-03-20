@@ -1,24 +1,18 @@
 import React from "react";
-import SHOP_DATA from "./shop.data";
-import CollectionPreview from "../../components/collection-preview/collection-preview";
+import {Route} from 'react-router-dom';
+import CollectionOverview from '../../components/collection-overview/collection-overview'
+import CollectionPage from '../../pages/collection/collection'
 
-class ShopPage extends React.Component {
-  constructor() {
-    super();
+const ShopPage = ({match}) => 
+(<div className="shop-page">
+  <Route exact path={`${match.path}`} component={CollectionOverview}/>
+  <Route path={`${match.path}/:collectionId`} component={CollectionPage}  />
+</div>);
+//we're using match.path bcz we want the code to know itself where we're on the route right now and match.path will tell we're now at /shop
 
-    this.state = {
-      collections: SHOP_DATA,
-    };
-  }
+//this makes it more flexible cuz we don't have to hard code it and hence we can use it in multiple components
 
-  render() {
-    const { collections } = this.state;
-    return <div className="shop-page">{
-        collections.map(({id, ...otherCollectionProps}) => (
-            <CollectionPreview key ={id}{...otherCollectionProps}/>
-        ))
-    }</div>;
-  }
-}
+// mapStateToProps = 
+
 
 export default ShopPage;
